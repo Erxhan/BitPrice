@@ -12,6 +12,7 @@ type CurrencyContextType = {
   bitcoinValue: number;
   setBitcoinValue: (value: number) => void;
   updateDate: Date;
+  fetchCurrencyData?: () => void;
 };
 
 const CurrencyContext = createContext<CurrencyContextType>({
@@ -22,6 +23,7 @@ const CurrencyContext = createContext<CurrencyContextType>({
   bitcoinValue: 1,
   setBitcoinValue: () => {},
   updateDate: new Date(),
+  fetchCurrencyData: () => {},
 });
 
 export const CurrencyContainer = ({ children }: PropsWithChildren<any>) => {
@@ -43,7 +45,7 @@ export const CurrencyContainer = ({ children }: PropsWithChildren<any>) => {
 
   const updateDate = data?.time.updatedISO ? new Date(data.time.updatedISO) : new Date();
 
-  useEffect(() => {
+  const fetchCurrencyData = () => {
     fetch(CurrencyDataUrl)
       .then((response) => {
         if (response.ok) {
@@ -60,6 +62,10 @@ export const CurrencyContainer = ({ children }: PropsWithChildren<any>) => {
         setCurrencyError(error.message);
         setCurrencyLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchCurrencyData();
   }, []);
 
   useEffect(() => {
@@ -99,6 +105,7 @@ export const CurrencyContainer = ({ children }: PropsWithChildren<any>) => {
         bitcoinValue,
         setBitcoinValue,
         updateDate,
+        fetchCurrencyData,
       }}
     >
       {children}
