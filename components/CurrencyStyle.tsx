@@ -6,24 +6,35 @@ import { Styles } from '../styles/common';
 export const useStyles = () => {
   const colorScheme = useColorScheme();
 
-  const darkMode = colorScheme === 'dark';
-
-  const Colors = darkMode ? ColorDarkMode : ColorLightMode;
+  const Colors = colorScheme === 'dark' ? ColorDarkMode : ColorLightMode;
 
   const marginBottomByPlatform = Platform.OS === 'ios' ? 5 : 0;
 
   return StyleSheet.create({
+    background: {
+      backgroundColor: Colors.background,
+    },
     container: {
-      backgroundColor: Colors.backgroundModal,
+      backgroundColor: Colors.background,
       height: Styles.window.height,
       padding: 20,
     },
+    text: {
+      color: Colors.primaryText,
+    },
+    secondaryText: {
+      color: Colors.secondaryText,
+    },
+    inputText: {
+      fontSize: 30,
+      fontWeight: '700',
+    },
     listContainer: {
-      backgroundColor: Colors.backgroundModal,
+      backgroundColor: Colors.secondaryBackground,
     },
     title: {
       fontSize: 40,
-      color: Colors.txtTitleModal,
+      color: Colors.primaryText,
       fontWeight: '700',
     },
     item: {
@@ -48,7 +59,7 @@ export const useStyles = () => {
       fontSize: 14,
     },
     commonSymbolCode: {
-      color: Colors.txtCallingCode,
+      color: Colors.secondaryText,
       marginBottom: marginBottomByPlatform,
       fontSize: 14,
       flex: 1,
@@ -68,7 +79,7 @@ export const useStyles = () => {
     textTitleSmallerWhite: {
       fontSize: 16,
       fontWeight: '500',
-      color: Colors.txtTitleModal,
+      color: Colors.primaryText,
     },
     textInput: {
       padding: 10,
@@ -88,16 +99,6 @@ export const useStyles = () => {
       marginBottom: 10,
       marginHorizontal: 20,
     },
-    titleModal: {
-      fontSize: 24,
-      fontWeight: '600',
-      color: Colors.txtTitleModal,
-    },
-    btnClose: {
-      color: Colors.txtTitleModal,
-      fontSize: 20,
-      fontWeight: '600',
-    },
     txtEmpty: {
       color: Colors.txtCountryCode,
       fontSize: 16,
@@ -106,7 +107,6 @@ export const useStyles = () => {
     flag: {
       fontSize: Platform.OS === 'ios' ? 28 : 20,
       lineHeight: 30,
-      color: Colors.flagColor,
     },
   });
 };

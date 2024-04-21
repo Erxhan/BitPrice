@@ -1,11 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+import { useStyles } from './CurrencyStyle';
 import { Bitcoin } from '../constants/currencies';
 import { useCurrency } from '../context/CurrencyContext';
 
 export const BitcoinInput = () => {
   const { bitcoinValue, setBitcoinValue } = useCurrency();
+  const styles = useStyles();
 
   return (
     <View
@@ -16,23 +18,16 @@ export const BitcoinInput = () => {
         gap: 10,
       }}
     >
-      <Text
-        style={{
-          fontSize: 30,
-          color: 'black',
-          fontWeight: '700',
-        }}
-      >
-        {Bitcoin.code}
-      </Text>
+      <Text style={[styles.text, styles.inputText]}>{Bitcoin.code}</Text>
       <TextInput
-        style={{
-          fontSize: 25,
-          color: 'black',
-          fontWeight: '700',
-          textAlign: 'right',
-          flex: 1,
-        }}
+        style={[
+          styles.text,
+          styles.inputText,
+          {
+            textAlign: 'right',
+            flex: 1,
+          },
+        ]}
         value={bitcoinValue.toString()}
         onChange={(e) => setBitcoinValue(Number(e.nativeEvent.text))}
         placeholder="0"
@@ -54,6 +49,8 @@ export const BitcoinInput = () => {
 export const CurrencyInput = ({ onPress }: { onPress: () => void }) => {
   const { currency, currencyValue } = useCurrency();
 
+  const styles = useStyles();
+
   return (
     <View
       style={{
@@ -71,21 +68,13 @@ export const CurrencyInput = ({ onPress }: { onPress: () => void }) => {
         }}
         onPress={onPress}
       >
-        <Text
-          style={{
-            fontSize: 30,
-            color: 'black',
-            fontWeight: '700',
-          }}
-        >
-          {currency.code}
-        </Text>
-        <Ionicons name="chevron-down" size={24} color="black" />
+        <Text style={[styles.text, styles.inputText]}>{currency.code}</Text>
+        <Ionicons name="chevron-down" size={24} color={styles.text.color} />
       </TouchableOpacity>
       <Text
         style={{
           fontSize: 30 - currencyValue.toString().length / 1.5,
-          color: 'black',
+          color: styles.text.color,
           fontWeight: '700',
           textAlign: 'right',
           flex: 1,

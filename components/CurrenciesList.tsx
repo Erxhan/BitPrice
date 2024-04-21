@@ -7,7 +7,6 @@ import { useStyles } from './CurrencyStyle';
 import { currencies, Currency } from '../constants/currencies';
 import currenciesImages from '../constants/currencies-images';
 import { useCurrency } from '../context/CurrencyContext';
-import { Colors } from '../styles/colors';
 
 type CurrenciesListRef = {
   expand: () => void;
@@ -59,14 +58,32 @@ const CurrenciesList = forwardRef<CurrenciesListRef>(function CurrenciesList(_, 
   };
 
   return (
-    <BottomSheet enablePanDownToClose ref={ref} snapPoints={initialSnapPoints}>
-      <View style={styles.search}>
+    <BottomSheet
+      enablePanDownToClose
+      ref={ref}
+      snapPoints={initialSnapPoints}
+      handleIndicatorStyle={{
+        backgroundColor: styles.text.color,
+      }}
+      handleStyle={{
+        backgroundColor: styles.listContainer.backgroundColor,
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10,
+      }}
+    >
+      <View
+        style={[
+          styles.search,
+          {
+            backgroundColor: styles.listContainer.backgroundColor,
+          },
+        ]}
+      >
         <View style={[styles.textInputContainer]}>
           <BottomSheetTextInput
             onChangeText={(text) => handleFilterChange(text)}
             value={search}
             placeholder="Search for a currency"
-            placeholderTextColor={Colors.textFieldColor}
             style={[styles.textTitleSmallerWhite, styles.textInput]}
           />
         </View>
@@ -74,6 +91,7 @@ const CurrenciesList = forwardRef<CurrenciesListRef>(function CurrenciesList(_, 
       <BottomSheetFlatList
         data={filteredListOfCurrencies}
         renderItem={renderItem}
+        style={styles.listContainer}
         keyExtractor={(item) => item[1].code}
         ListEmptyComponent={() => (
           <View style={styles.listNullContainer}>

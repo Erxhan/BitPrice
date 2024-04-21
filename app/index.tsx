@@ -18,7 +18,7 @@ export default function App() {
   return (
     <BottomSheetModalProvider>
       <GestureHandlerRootView>
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
           <KeyboardAvoidingView>
             <Pressable onPress={Keyboard.dismiss}>
               <CurrencyContainer>
@@ -32,8 +32,17 @@ export default function App() {
                       marginBottom: 50,
                     }}
                   >
-                    <Text style={styles.title}>BitPrice</Text>
-                    <FontAwesome name="bitcoin" size={40} color="black" />
+                    <Text
+                      style={[
+                        styles.title,
+                        {
+                          color: 'green',
+                        },
+                      ]}
+                    >
+                      BitPrice
+                    </Text>
+                    <FontAwesome name="bitcoin" size={40} color="green" />
                   </View>
                   <View
                     style={{
@@ -42,7 +51,7 @@ export default function App() {
                     }}
                   >
                     <BitcoinInput />
-                    <FontAwesome name="arrow-down" size={24} color="black" />
+                    <FontAwesome name="arrow-down" size={24} color={styles.title.color} />
                     <CurrencyInput onPress={() => sheetRef.current?.expand()} />
                     <UpdatedDate />
                   </View>
